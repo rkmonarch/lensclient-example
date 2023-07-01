@@ -33,3 +33,52 @@ export const createProfile = async (userName: any) => {
 
 }
 
+export const getProfile = async (handle: any) => {
+    console.log("handle", handle);
+    const profileByHandle = await lensClient.profile.fetch({
+        handle: `${handle}.test`,
+    });
+    console.log("profileByHandle", profileByHandle);
+    return profileByHandle?.id;
+}
+
+export const createMetaData = async (createProfileMetadataRequest: any) => {
+    const typedDataResult =
+        await lensClient.profile.createSetProfileMetadataTypedData(
+            createProfileMetadataRequest
+        );
+    console.log("relayerResult", typedDataResult);
+
+    const profileData = typedDataResult.unwrap();
+
+    const signer = await getSigner();
+
+    const signedTypedData = await signer._signTypedData(
+        profileData.typedData.domain,
+        profileData.typedData.types,
+        profileData.typedData.value
+    );
+
+    const broadcastResult = await lensClient.transaction.broadcast({
+        id: profileData.id,
+        signature: signedTypedData,
+    });
+
+    const broadcastResultValue = broadcastResult.unwrap();
+
+    if (!isRelayerResult(broadcastResultValue)) {
+        console.log(`Something went wrong`, broadcastResultValue);
+        return;
+    }
+    console.log(
+        `Transaction was successfuly broadcasted with txId ${broadcastResultValue.txId}`
+    );
+
+};
+
+export const deleteProfile = async (profileId: any) => {
+    const burnProfileTypedDataResult = await lensClient.profile.createBurnProfileTypedData({
+        profileId,
+      });
+      console.log("burnProfileTypedDataResult", burnProfileTypedDataResult);
+    }
