@@ -1,6 +1,9 @@
 ## LensClient-Example
 This repository showcases an example implementation of the LensClient library, which is a client library for interacting with the Lens Protocol. It demonstrates how to sign in with Lens, create a profile, get a profile, create profile metadata, and delete a profile using the LensClient library.
 
+![creative](https://github.com/rkmonarch/lensclient-example/blob/main/public/lensclient.png)
+
+
 ### Installation
 
 Clone the repository to your local machine:
