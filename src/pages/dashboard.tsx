@@ -23,7 +23,7 @@ export default function Dashboard() {
     async function createProfileMetadata() {
         // Initialize Web3Storage client
         const client = new Web3Storage({
-            token: "<YOUR_WEB3_STORAGE_TOKEN>",
+            token:"WEB3STORAGE_TOKEN"
         });
 
         // Create profile metadata object
@@ -121,7 +121,7 @@ export default function Dashboard() {
                 <Modal isOpen={isOpen} onClose={onClose}>
                     <ModalOverlay />
                     <ModalContent>
-                        <ModalHeader>Modal Title</ModalHeader>
+                        <ModalHeader>Create Profile Metadata</ModalHeader>
                         <ModalCloseButton />
                         <ModalBody>
                             <div className="flex items-center justify-center space-x-2 mb-5">
@@ -142,7 +142,7 @@ export default function Dashboard() {
                                         setImage(image);
                                         const files = e.target.files;
                                         const client = new Web3Storage({
-                                            token: "<YOUR_WEB3_STORAGE_TOKEN>",
+                                            token: "WEB3STORAGE_TOKEN",
                                         });
                                         client.put(files).then((cid) => {
                                             console.log(cid);
